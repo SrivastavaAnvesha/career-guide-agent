@@ -7,7 +7,9 @@ career_paths = {
     "design": ("UI/UX Designer", "https://www.coursera.org/learn/ui-ux-design"),
     "data": ("Data Scientist", "https://www.coursera.org/specializations/data-science-python"),
     "marketing": ("Digital Marketer", "https://www.coursera.org/specializations/digital-marketing"),
-    "confused": ("Career Counsellor Recommended", "https://www.careerguide.com")
+    "confused": ("Career Counsellor Recommended", "https://www.careerguide.com"),
+    "ai": ("AI Engineer", "https://www.coursera.org/learn/introduction-to-ai"),
+    "art": ("Graphic Designer", "https://www.coursera.org/learn/graphic-design")
 }
 
 st.title("🎯 Career Guide AI Chat Agent")
