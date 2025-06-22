@@ -1,11 +1,25 @@
-# career_agent.py
+from agentpy import Agent, Model, AgentList
 
-from agentpy import Agent
-
+# Custom Agent that reads interest from the model
 class CareerAgent(Agent):
-    def setup(self):
-        self.interest = self.p.interest
 
+    def get_suggestion(self):
+        interest = self.model.user_interest.lower()
+
+        for key in self.model.career_paths:
+            if key in interest:
+                return self.model.career_paths[key]
+
+        return ("Career Counsellor Recommended", "https://www.careerguide.com")
+
+# CareerModel with interest passed into it
+class CareerModel(Model):
+
+    def __init__(self, interest, **kwargs):
+        super().__init__(**kwargs)
+        self.user_interest = interest
+
+    def setup(self):
         self.career_paths = {
             "coding": ("Software Developer", "https://www.coursera.org/specializations/python"),
             "design": ("UI/UX Designer", "https://www.coursera.org/learn/ui-ux-design"),
@@ -16,9 +30,7 @@ class CareerAgent(Agent):
             "art": ("Graphic Designer", "https://www.coursera.org/learn/graphic-design")
         }
 
-    def get_suggestion(self):
-        text = self.interest.lower()
-        for keyword in self.career_paths:
-            if keyword in text:
-                return self.career_paths[keyword]
-        return ("General Advisor", "https://www.coursera.org")
+        self.agents = AgentList(self, 1, CareerAgent)
+
+    def step(self):
+        return self.agents[0].get_suggestion()
