@@ -1,6 +1,6 @@
 from agentpy import Agent, Model, AgentList
 
-# Define agent class
+# Define the agent
 class CareerAgent(Agent):
     def get_suggestion(self):
         interest = self.model.user_interest.lower()
@@ -11,12 +11,12 @@ class CareerAgent(Agent):
 
         return ("Career Counsellor Recommended", "https://www.careerguide.com")
 
-# Define model class
+# Define the model
 class CareerModel(Model):
 
     def __init__(self, interest, **kwargs):
         super().__init__(**kwargs)
-        self.user_interest = interest
+        self.user_interest = interest  # ✅ store interest as instance variable
 
     def setup(self):
         self.career_paths = {
@@ -29,7 +29,7 @@ class CareerModel(Model):
             "art": ("Graphic Designer", "https://www.coursera.org/learn/graphic-design")
         }
 
-        self.agents = AgentList(self, 1, CareerAgent)
+        self.agents = AgentList(self, 1, CareerAgent)  # ✅ create agent list
 
     def step(self):
         return self.agents[0].get_suggestion()

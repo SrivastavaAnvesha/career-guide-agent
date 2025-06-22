@@ -8,9 +8,9 @@ st.subheader("Tell me about your interests, and I’ll help guide your career pa
 user_input = st.text_input("💬 What's on your mind? (e.g., I like coding and design...)")
 
 if user_input:
-    model = CareerModel(user_input)   # ✅ Pass input directly
-    model.setup()                     # ✅ Setup must be called
-    career, link = model.step()      # ✅ Get output
+    model = CareerModel(user_input)   # ✅ Correct input
+    model.setup()                     # ✅ Important: run setup()
+    career, link = model.step()      # ✅ Get output from agent
 
     st.success(f"✅ Suggested Career: **{career}**")
     st.markdown(f"📚 [Recommended Course]({link})")
