@@ -1,13 +1,23 @@
 from agentpy import Agent, Model, AgentList
 
 
-# Define a CareerAgent with fixed interest-to-career mappings
+# CareerAgent accesses the career paths from the model
 class CareerAgent(Agent):
 
     def get_suggestion(self):
         interest = self.model.interest.lower()
 
-        # Predefined career paths
+        for key in self.model.career_paths:
+            if key in interest:
+                return self.model.career_paths[key]
+
+        return ("Career Counsellor Recommended", "https://www.careerguide.com")
+
+
+# Model stores the interest and career path mapping
+class CareerModel(Model):
+
+    def setup(self):
         self.career_paths = {
             "coding": ("Software Developer", "https://www.coursera.org/specializations/python"),
             "design": ("UI/UX Designer", "https://www.coursera.org/learn/ui-ux-design"),
@@ -18,20 +28,6 @@ class CareerAgent(Agent):
             "art": ("Graphic Designer", "https://www.coursera.org/learn/graphic-design")
         }
 
-        # Find the best match
-        for key in self.career_paths:
-            if key in interest:
-                return self.career_paths[key]
-
-        # Default if nothing matches
-        return ("Career Counsellor Recommended", "https://www.careerguide.com")
-
-
-# Define the model containing the agent
-class CareerModel(Model):
-
-    def setup(self):
-        # Create one agent
         self.agents = AgentList(self, 1, CareerAgent)
 
     def step(self):
