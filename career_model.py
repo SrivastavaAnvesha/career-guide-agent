@@ -1,8 +1,7 @@
 from agentpy import Agent, Model, AgentList
 
-# Custom Agent that reads interest from the model
+# Define agent class
 class CareerAgent(Agent):
-
     def get_suggestion(self):
         interest = self.model.user_interest.lower()
 
@@ -12,7 +11,7 @@ class CareerAgent(Agent):
 
         return ("Career Counsellor Recommended", "https://www.careerguide.com")
 
-# CareerModel with interest passed into it
+# Define model class
 class CareerModel(Model):
 
     def __init__(self, interest, **kwargs):
